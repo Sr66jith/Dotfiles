@@ -51,7 +51,7 @@ set nohlsearch
 filetype plugin indent on
 
 " Enabling matchit plugin
-packadd! matchit
+" packadd! matchit
 
 " Color scheme
 set background=dark
@@ -114,7 +114,7 @@ set formatoptions+=jroqn1
 " autocmd VimEnter * NERDTree
 
 " Keymappings
-map <S-N> :NERDTreeToggle<CR>
+map <C-N> :NERDTreeToggle<CR>
 
 " Lightline colorscheme
 let g:lightline = {
@@ -127,3 +127,9 @@ set noshowmode
 
 " To set timeout while switching modes
 set timeoutlen=1000 ttimeoutlen=0
+
+" Automate compiling and printing
+autocmd filetype python nnoremap <C-E> :w <bar> exec '!python '.shellescape('%')<CR>
+autocmd filetype c nnoremap <C-E> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+autocmd filetype cpp nnoremap <C-E> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+autocmd filetype tex nnoremap <C-E> :w <bar> exec '!pdflatex '.shellescape('%')<CR>
