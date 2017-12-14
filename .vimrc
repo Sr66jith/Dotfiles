@@ -124,3 +124,6 @@ set laststatus=2
 
 " To avoid displaying mode in the default status bar
 set noshowmode
+
+" To set timeout while switching modes
+set timeoutlen=1000 ttimeoutlen=0
