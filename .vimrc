@@ -1,5 +1,29 @@
 " To make vim incompatible with vi
 set nocompatible 
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+
+" VUNDLE PLUGINS
+call vundle#begin()
+
+" let Vundle manage Vundle,required
+Plugin 'VundleVim/Vundle.vim' 
+
+" NERDTree
+Plugin 'scrooloose/nerdtree'
+
+" Solarized Color Scheme
+Plugin 'altercation/vim-colors-solarized'
+
+" Light line
+Plugin 'itchyny/lightline.vim'
+
+" Gruvbox
+Plugin 'morhetz/gruvbox'
+
+call vundle#end()
 
 " Allow motion and backspacing over line-endings etc.
 set backspace=indent,eol,start
@@ -21,17 +45,18 @@ set incsearch
 set nohlsearch
 
 " For 256 color scheme
-set t_Co=16
+" set t_Co=16
 
 " For filetype detection, using filetype plugins, using indent files
-filetype plugin on
+filetype plugin indent on
 
 " Enabling matchit plugin
 packadd! matchit
 
-" Setting solarized dark color scheme
+" Color scheme
+set background=dark
 colorscheme solarized
-" set background=dark
+" colorscheme gruvbox
 
 " Enable syntax highlighting
 syntax enable
@@ -90,3 +115,12 @@ set formatoptions+=jroqn1
 
 " Keymappings
 map <S-N> :NERDTreeToggle<CR>
+
+" Lightline colorscheme
+let g:lightline = {
+        \ 'colorscheme': 'wombat',
+        \ }
+set laststatus=2
+
+" To avoid displaying mode in the default status bar
+set noshowmode
