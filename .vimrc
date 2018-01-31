@@ -3,7 +3,7 @@ set nocompatible
 filetype off
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.config/nvim/.nvim/bundle/Vundle.vim
 
 " VUNDLE PLUGINS
 call vundle#begin()
@@ -54,8 +54,8 @@ filetype plugin indent on
 " packadd! matchit
 
 " Color scheme
-set background=dark
-colorscheme solarized
+ set background=dark
+ colorscheme solarized
 " colorscheme gruvbox
 
 " Enable syntax highlighting
@@ -63,6 +63,7 @@ syntax enable
 
 " Set line number
 set number
+set relativenumber
 
 " To do case-sensitive search
 set ignorecase
@@ -81,19 +82,25 @@ set scrolloff=5
 set sidescrolloff=5
 
 " Indenting
+set tabstop=4
+set softtabstop=4
 set expandtab
+set smarttab
 set shiftwidth=4
-set tabstop=8
-set softtabstop=8
 set autoindent
 set smartindent
 set cindent
 
+" To wrap lines
+set wrap
+
+" Turn backup off
+set nobackup
+set nowb
+set noswapfile
+
 " Round indent to nearest multiple of 2
 set shiftround
-
-" No line-wrapping
-set nowrap
 
 " Spell-check always on
 " set spell
@@ -114,7 +121,7 @@ set formatoptions+=jroqn1
 " autocmd VimEnter * NERDTree
 
 " Keymappings
-map <C-N> :NERDTreeToggle<CR>
+map <F5> :NERDTreeToggle<CR>
 
 " Lightline colorscheme
 let g:lightline = {
@@ -126,10 +133,26 @@ set laststatus=2
 set noshowmode
 
 " To set timeout while switching modes
-set timeoutlen=1000 ttimeoutlen=0
+set timeoutlen=1000 ttimeoutlen=10
 
 " Automate compiling and printing
 autocmd filetype python nnoremap <C-E> :w <bar> exec '!python '.shellescape('%')<CR>
-autocmd filetype c nnoremap <C-E> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
-autocmd filetype cpp nnoremap <C-E> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
-autocmd filetype tex nnoremap <C-E> :w <bar> exec '!pdflatex '.shellescape('%')<CR>
+autocmd filetype c      nnoremap <C-E> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+autocmd filetype cpp    nnoremap <C-E> :w <bar> exec '!g++ '.shellescape('%')<CR>
+autocmd filetype tex    nnoremap <C-E> :w <bar> exec '!pdflatex '.shellescape('%')<CR>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+"**************************
+" Setting up Map Leader
+"**************************
+let mapleader = ";"
+
+" Fast saves
+nmap <leader>w :w<CR>
+nmap <leader>q :wq<CR>
+autocmd filetype cpp nmap <leader>r :!./a.out<CR>
