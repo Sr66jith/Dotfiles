@@ -1,3 +1,6 @@
+"**********************************
+" General configurations
+"**********************************
 " To make vim incompatible with vi
 set nocompatible 
 filetype off
@@ -20,17 +23,17 @@ Plugin 'altercation/vim-colors-solarized'
 " Light line
 Plugin 'itchyny/lightline.vim'
 
-" Gruvbox
-Plugin 'morhetz/gruvbox'
-
 call vundle#end()
 
-" Allow motion and backspacing over line-endings etc.
+" Allow backspacing over autoindent, line breaks and start of insert action
 set backspace=indent,eol,start
 set whichwrap=h,l,b,<,>,~,[,]
 
 " Don't redraw the screen unless we need to
 set lazyredraw
+
+" Automatically enable mouse
+set mouse=a
 
 " To display the current cursor position in lower right corner
 set ruler
@@ -41,48 +44,48 @@ set showcmd
 " To display a match for a search pattern when halfway typing it
 set incsearch
 
-" To disable items to be highlighted after search
-set nohlsearch
+" Better command line completion
+set wildmenu
 
-" For 256 color scheme
-" set t_Co=16
+" To enable items to be highlighted after search
+set hlsearch
+
+" To use the secure modeline
+set nomodeline
+
+" To reuse the same window and switch from an unused buffer without saving it
+" first
+set hidden
 
 " For filetype detection, using filetype plugins, using indent files
 filetype plugin indent on
 
-" Enabling matchit plugin
-" packadd! matchit
-
 " Color scheme
  set background=dark
  colorscheme solarized
-" colorscheme gruvbox
 
 " Enable syntax highlighting
-syntax enable
+syntax on
 
 " Set line number
 set number
 set relativenumber
 
-" To do case-sensitive search
+" To do case-sensitive search, except when using caps
 set ignorecase
-
-" For case sensitive search when we input caps
 set smartcase
 
 " Force the text to the next line when exceeding 80 characters
 set textwidth=80
 
 " Highlight current cursor line
-set cursorline
+"set cursorline
 
 " Scroll slightly earlier before the cursor reaches the edge
 set scrolloff=5
-set sidescrolloff=5
 
 " Indenting
-set tabstop=4
+" set tabstop=4
 set softtabstop=4
 set expandtab
 set smarttab
@@ -92,7 +95,7 @@ set smartindent
 set cindent
 
 " To wrap lines
-set wrap
+" set wrap
 
 " Turn backup off
 set nobackup
@@ -121,25 +124,45 @@ set formatoptions+=jroqn1
 " autocmd VimEnter * NERDTree
 
 " Keymappings
-map <F5> :NERDTreeToggle<CR>
 
 " Lightline colorscheme
 let g:lightline = {
-        \ 'colorscheme': 'wombat',
+        \ 'colorscheme': 'solarized',
         \ }
+
+" Allow display of the status line, even if only one window is displayed
 set laststatus=2
 
 " To avoid displaying mode in the default status bar
 set noshowmode
 
-" To set timeout while switching modes
-set timeoutlen=1000 ttimeoutlen=10
+" To set the command window height to 2 lines
+set cmdheight=1
 
-" Automate compiling and printing
-autocmd filetype python nnoremap <C-E> :w <bar> exec '!python '.shellescape('%')<CR>
-autocmd filetype c      nnoremap <C-E> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
-autocmd filetype cpp    nnoremap <C-E> :w <bar> exec '!g++ '.shellescape('%')<CR>
-autocmd filetype tex    nnoremap <C-E> :w <bar> exec '!pdflatex '.shellescape('%')<CR>
+" To time out quickly on keycodes, but never time out on mappings
+set notimeout ttimeout ttimeoutlen=200
+
+"********************************************
+" Setting up Map Leader and other keymappings
+"********************************************
+let mapleader = ","
+
+" To improve typing speeds
+nnoremap ; :
+
+" Execution of different file types
+autocmd filetype cpp nmap <leader>r :!./a.out<CR>
+autocmd filetype c   nmap <leader>r :!./a.out<CR>
+
+" Compiling files
+autocmd filetype tex    nmap <leader>e :w <bar> exec '!pdflatex '.shellescape('%')<CR>
+autocmd filetype cpp    nmap <leader>e :w <bar> exec '!g++ '.shellescape('%')<CR>
+
+" Nerd Tree Toggle
+map <F5> :NERDTreeToggle<CR>
+
+" Use <F11> to toggle between 'paste' and 'nopaste'
+set pastetoggle=<F11>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -147,12 +170,15 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-"**************************
-" Setting up Map Leader
-"**************************
-let mapleader = ";"
+" To yank till end of line rather than the full line
+map Y y$
 
-" Fast saves
-nmap <leader>w :w<CR>
-nmap <leader>q :wq<CR>
-autocmd filetype cpp nmap <leader>r :!./a.out<CR>
+" To toggle highlight search
+nnoremap <C-L> :nohl<CR><C-L>
+
+" Wrapped lines goes down/up to next row, rather than next line in file
+nnoremap j gj
+nnoremap k gk
+
+" When you forget to use sudo in some files
+cmap w!! w !sudo tee % >/dev/null
