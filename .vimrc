@@ -48,7 +48,7 @@ set incsearch
 set wildmenu
 
 " To enable items to be highlighted after search
-set hlsearch
+set nohlsearch
 
 " To use the secure modeline
 set nomodeline
@@ -61,8 +61,8 @@ set hidden
 filetype plugin indent on
 
 " Color scheme
- set background=dark
- colorscheme solarized
+set background=dark
+colorscheme solarized
 
 " Enable syntax highlighting
 syntax on
@@ -123,8 +123,6 @@ set formatoptions+=jroqn1
 " To launch NERDTree on startup
 " autocmd VimEnter * NERDTree
 
-" Keymappings
-
 " Lightline colorscheme
 let g:lightline = {
         \ 'colorscheme': 'solarized',
@@ -151,8 +149,8 @@ let mapleader = ","
 nnoremap ; :
 
 " Execution of different file types
-autocmd filetype cpp nmap <leader>r :!./a.out<CR>
-autocmd filetype c   nmap <leader>r :!./a.out<CR>
+autocmd filetype cpp    nmap <leader>r :!./a.out<CR>
+autocmd filetype c      nmap <leader>r :!./a.out<CR>
 
 " Compiling files
 autocmd filetype tex    nmap <leader>e :w <bar> exec '!pdflatex '.shellescape('%')<CR>
@@ -165,16 +163,17 @@ map <F5> :NERDTreeToggle<CR>
 set pastetoggle=<F11>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nmap <C-j> <C-W>j
+nmap <C-k> <C-W>k
+nmap <C-h> <C-W>h
+nmap <C-l> <C-W>l
+
+" Split windows vertically and horizontally
+nmap <C-v> <C-W>v<C-W>
+nmap <C-s> <C-W>s<C-W>
 
 " To yank till end of line rather than the full line
 map Y y$
-
-" To toggle highlight search
-nnoremap <C-L> :nohl<CR><C-L>
 
 " Wrapped lines goes down/up to next row, rather than next line in file
 nnoremap j gj
@@ -182,3 +181,20 @@ nnoremap k gk
 
 " When you forget to use sudo in some files
 cmap w!! w !sudo tee % >/dev/null
+
+"**************************
+" gVim Specific
+"**************************
+
+" For removing Menu bar
+set guioptions-=m
+
+" For removing Tool bar
+set guioptions-=T
+
+" For removing Scroll bar
+ set guioptions-=r
+
+ set guioptions-=L
+
+ set guioptions=ac
