@@ -5,6 +5,9 @@
 set nocompatible 
 filetype off
 
+" To autoread the existing buffer
+set autoread
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.config/nvim/.nvim/bundle/Vundle.vim
 
@@ -22,6 +25,9 @@ Plugin 'altercation/vim-colors-solarized'
 
 " Light line
 Plugin 'itchyny/lightline.vim'
+
+" Dracula Color Scheme
+Plugin 'dracula/vim'
 
 call vundle#end()
 
@@ -61,8 +67,8 @@ set hidden
 filetype plugin indent on
 
 " Color scheme
-set background=dark
-colorscheme solarized
+"set background=dark
+colorscheme dracula
 
 " Enable syntax highlighting
 syntax on
@@ -125,7 +131,7 @@ set formatoptions+=jroqn1
 
 " Lightline colorscheme
 let g:lightline = {
-        \ 'colorscheme': 'solarized',
+        \ 'colorscheme': 'Dracula',
         \ }
 
 " Allow display of the status line, even if only one window is displayed
@@ -151,6 +157,9 @@ nnoremap ; :
 " Execution of different file types
 autocmd filetype cpp    nmap <leader>r :!./a.out<CR>
 autocmd filetype c      nmap <leader>r :!./a.out<CR>
+
+" Writing the executed results into a txt file
+autocmd filetype cpp    nmap <leader>w :!./a.out > a.txt<CR>
 
 " Compiling files
 autocmd filetype tex    nmap <leader>e :w <bar> exec '!pdflatex '.shellescape('%')<CR>
@@ -179,6 +188,9 @@ map Y y$
 nnoremap j gj
 nnoremap k gk
 
+" To switch tabs
+nnoremap t gt
+
 " When you forget to use sudo in some files
 cmap w!! w !sudo tee % >/dev/null
 
@@ -187,14 +199,14 @@ cmap w!! w !sudo tee % >/dev/null
 "**************************
 
 " For removing Menu bar
-set guioptions-=m
+"set guioptions-=m
 
 " For removing Tool bar
 set guioptions-=T
 
 " For removing Scroll bar
- set guioptions-=r
+set guioptions-=r
 
- set guioptions-=L
+set guioptions-=L
 
- set guioptions=ac
+set guioptions=ac
