@@ -17,7 +17,7 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Inconsolata Bold 12
+font pango:Inconsolata-g 0
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -31,21 +31,15 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id termite 
+
 # kill focused window
 bindsym $mod+x kill
-# Open file manager
-bindsym $mod+e exec --no-startup-id pcmanfm
-# Open chromium 
-bindsym $mod+w exec --no-startup-id chromium
-# Open Firefox
-bindsym $mod+p exec --no-startup-id firefox
 
-# start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# Open file manager
+bindsym $mod+e exec --no-startup-id thunar
+
+# Open Firefox
+bindsym $mod+w exec --no-startup-id firefox
 
 #Start Rofi
 exec --no-startup-id xrdb ~/.Xresources
@@ -135,11 +129,8 @@ bindsym $mod+Shift+7 move container to workspace $workspace7
 bindsym $mod+Shift+8 move container to workspace $workspace8
 bindsym $mod+Shift+9 move container to workspace $workspace9
 
-bindsym $mod+Control+Right workspace next
-bindsym $mod+Control+Left  workspace prev
-
-# for setting fullscreen as default in mirage
-for_window [class="Mirage"] fullscreen enable
+bindsym $mod+Control+l workspace next
+bindsym $mod+Control+h  workspace prev
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -148,7 +139,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+ bindsym $mod+Shift+q exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -176,10 +167,10 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-#Gaps config
+# Gaps config
  gaps inner 10
-# gaps outer 5
-# smart_gaps on
+ #gaps outer 5
+ smart_gaps on
 
 #Window Colors
 set $bg-color 	         #51bcbc
@@ -195,6 +186,7 @@ client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-co
 client.urgent 	      	$urgent-bg-color    $urgent-bg-color   $text-color	       #51bcbc
 
  hide_edge_borders both
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 #bar {
@@ -210,29 +202,34 @@ client.urgent 	      	$urgent-bg-color    $urgent-bg-color   $text-color	       
 #}
 
 # i3 Lock
-bindsym $mod+Escape exec --no-startup-id /home/zeref/Git/betterlockscreen/lock.sh -l 
-exec --no-startup-id /home/zeref/Git/betterlockscreen/lock.sh -u /home/zeref/Wallpapers/lighthouse.jpg
+#bindsym $mod+Escape exec --no-startup-id /home/zeref/Git/betterlockscreen/lock.sh -l 
+#exec --no-startup-id /home/zeref/Git/betterlockscreen/lock.sh -u /home/zeref/Wallpapers/lighthouse.jpg
 
 # Borders
-new_window pixel 1
+ new_window pixel 0
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 5 # increase screen brightness 
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5 # decrease screen brightness 
+bindsym XF86MonBrightnessUp     exec --no-startup-id xbacklight -inc 5 # increase screen brightness 
+bindsym XF86MonBrightnessDown   exec --no-startup-id xbacklight -dec 10 # decrease screen brightness 
+
+## To set the screen brightness to the required percentage
+bindsym $mod+Control+1                exec --no-startup-id xbacklight -set 10 
+bindsym $mod+Control+2                exec --no-startup-id xbacklight -set 20 
+bindsym $mod+Control+3                exec --no-startup-id xbacklight -set 30 
+bindsym $mod+Control+4                exec --no-startup-id xbacklight -set 40 
+bindsym $mod+Control+5                exec --no-startup-id xbacklight -set 50 
+bindsym $mod+Control+6                exec --no-startup-id xbacklight -set 60 
+bindsym $mod+Control+7                exec --no-startup-id xbacklight -set 70 
+bindsym $mod+Control+8                exec --no-startup-id xbacklight -set 80 
+bindsym $mod+Control+9                exec --no-startup-id xbacklight -set 90 
 
 # Volume Control
-bindsym XF86AudioLowerVolume   exec --no-startup-id amixer set Master 5%-  
-bindsym XF86AudioRaiseVolume   exec --no-startup-id amixer set Master 5%+
-bindsym XF86AudioMute          exec --no-startup-id amixer set Master toggle
-
-# Media player controls
-bindsym XF86AudioPlay  exec --no-startup-id cmus-remote -u
-bindsym XF86AudioPause exec --no-startup-id cmus-remote -u
-bindsym XF86AudioNext  exec --no-startup-id cmus-remote -n
-bindsym XF86AudioPrev  exec --no-startup-id cmus-remote -r
+bindsym XF86AudioLowerVolume    exec --no-startup-id amixer set Master 5%-  
+bindsym XF86AudioRaiseVolume    exec --no-startup-id amixer set Master 5%+
+bindsym XF86AudioMute           exec --no-startup-id amixer set Master toggle
 
 # Wallpaper
-exec_always --no-startup-id feh --bg-center ~/Wallpapers/gradient.jpg
+exec_always --no-startup-id feh --bg-center ~/Wallpapers/mountain.png
 
 # Compton
 exec --no-startup-id compton -b
@@ -240,23 +237,12 @@ exec --no-startup-id compton -b
 # Power Manager
 exec --no-startup-id xfce4-power-manager
 
-# Dropbox
-# exec --no-startup-id dropbox
+# Thunar daemon
+exec --no-startup-id thunar --daemon
 
-# Mega Sync
-# exec --no-startup-id megasync
+# GVim
+bindsym $mod+p exec --no-startup-id gvim 
 
-# Network Manager
-exec --no-startup-id nm-applet
-
-# Redshift
-exec --no-startup-id redshift
-
-# Tint2
-# exec --no-startup-id tint2
-
-# shutdown
-bindsym $mod+Shift+q exec poweroff
-
-# Reboot
-bindsym $mod+Shift+z exec reboot
+# Correct handling of floating dialogs
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
