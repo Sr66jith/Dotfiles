@@ -9,7 +9,7 @@ filetype off
 set autoread
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.config/nvim/.nvim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 
 " VUNDLE PLUGINS
 call vundle#begin()
@@ -28,6 +28,12 @@ Plugin 'itchyny/lightline.vim'
 
 " Dracula Color Scheme
 Plugin 'dracula/vim'
+
+" LaTeX Plugin
+Plugin 'lervag/vimtex'
+
+" For commenting and uncommenting a line
+Plugin 'tpope/vim-commentary'
 
 call vundle#end()
 
@@ -67,15 +73,14 @@ set hidden
 filetype plugin indent on
 
 " Color scheme
-"set background=dark
-colorscheme dracula
+set background=dark
+colorscheme solarized
 
 " Enable syntax highlighting
 syntax on
 
 " Set line number
 set number
-set relativenumber
 
 " To do case-sensitive search, except when using caps
 set ignorecase
@@ -91,7 +96,7 @@ set textwidth=80
 set scrolloff=5
 
 " Indenting
-" set tabstop=4
+set tabstop=4
 set softtabstop=4
 set expandtab
 set smarttab
@@ -131,7 +136,7 @@ set formatoptions+=jroqn1
 
 " Lightline colorscheme
 let g:lightline = {
-        \ 'colorscheme': 'Dracula',
+        \ 'colorscheme': 'solarized',
         \ }
 
 " Allow display of the status line, even if only one window is displayed
@@ -162,7 +167,7 @@ autocmd filetype c      nmap <leader>r :!./a.out<CR>
 autocmd filetype cpp    nmap <leader>w :!./a.out > a.txt<CR>
 
 " Compiling files
-autocmd filetype tex    nmap <leader>e :w <bar> exec '!pdflatex '.shellescape('%')<CR>
+" autocmd filetype tex    nmap <leader>e :w <bar> exec '!pdflatex '.shellescape('%')<CR>
 autocmd filetype cpp    nmap <leader>e :w <bar> exec '!g++ '.shellescape('%')<CR>
 
 " Nerd Tree Toggle
@@ -202,11 +207,12 @@ cmap w!! w !sudo tee % >/dev/null
 "set guioptions-=m
 
 " For removing Tool bar
-set guioptions-=T
+"set guioptions-=T
 
 " For removing Scroll bar
 set guioptions-=r
-
 set guioptions-=L
 
-set guioptions=ac
+"set guioptions=ac
+
+let g:vimtex_view_method='zathura'
