@@ -167,7 +167,6 @@ autocmd filetype c      nmap <leader>r :!./a.out<CR>
 autocmd filetype cpp    nmap <leader>w :!./a.out > a.txt<CR>
 
 " Compiling files
-" autocmd filetype tex    nmap <leader>e :w <bar> exec '!pdflatex '.shellescape('%')<CR>
 autocmd filetype cpp    nmap <leader>e :w <bar> exec '!g++ '.shellescape('%')<CR>
 
 " Nerd Tree Toggle
